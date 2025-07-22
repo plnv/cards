@@ -1,10 +1,10 @@
 export class CardElement extends HTMLElement {
-    constructor() {
-        super();
-    }
+  constructor() {
+    super();
+  }
 
-    showSkeleton() {
-        this.innerHTML = `
+  showSkeleton() {
+    this.innerHTML = `
             <div class="card" aria-hidden="true">
                 <div class="card-body">
                     <h5 class="card-title placeholder-glow">
@@ -17,5 +17,5 @@ export class CardElement extends HTMLElement {
                 </div>
             </div>
         `;
-    }
+  }
 }
