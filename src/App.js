@@ -11,6 +11,8 @@ export class App {
         this.container = document.getElementById('card-container');
         this.pageInfo = document.getElementById('page-info');
         this.cardElements = [];
+        this.prevBtn = document.getElementById('prev');
+        this.nextBtn = document.getElementById('next');
     }
 
     init() {
@@ -25,14 +27,14 @@ export class App {
             document.documentElement.setAttribute('data-bs-theme', this.theme)
         });
 
-        document.getElementById('prev').addEventListener('click', () => {
+        this.prevBtn.addEventListener('click', () => {
             if (this.page > 0) {
                 this.page--;
                 this.loadData();
             }
         });
 
-        document.getElementById('next').addEventListener('click', () => {
+        this.nextBtn.addEventListener('click', () => {
             if ((this.page + 1) * LIMIT < this.total) {
                 this.page++;
                 this.loadData();
@@ -48,9 +50,13 @@ export class App {
         const skip = this.page * LIMIT;
         try {
             const data = await fetchData(this.source, LIMIT, skip);
+
             this.total = data.total;
             this.renderCards(data.items);
             this.pageInfo.textContent = `Страница ${this.page + 1} из ${Math.ceil(this.total / LIMIT)}`;
+
+            this.prevBtn.disabled = this.page === 0;
+            this.nextBtn.disabled = (this.page + 1) * LIMIT >= this.total;
         } catch (err) {
             this.container.innerHTML = 'Ошибка загрузки данных';
         }
