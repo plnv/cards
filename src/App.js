@@ -48,31 +48,38 @@ export class App {
     async loadData() {
         this.renderCards(null);
         const skip = this.page * LIMIT;
+
         try {
             const data = await fetchData(this.source, LIMIT, skip);
-
             this.total = data.total;
             this.renderCards(data.items);
-            this.pageInfo.textContent = `Страница ${this.page + 1} из ${Math.ceil(this.total / LIMIT)}`;
-
-            this.prevBtn.disabled = this.page === 0;
-            this.nextBtn.disabled = (this.page + 1) * LIMIT >= this.total;
+            this.updatePagination();
         } catch (err) {
             this.container.innerHTML = 'Ошибка загрузки данных';
         }
     }
 
+    updatePagination() {
+        this.pageInfo.textContent = `Страница ${this.page + 1} из ${Math.ceil(this.total / LIMIT)}`;
+        this.prevBtn.disabled = this.page === 0;
+        this.nextBtn.disabled = (this.page + 1) * LIMIT >= this.total;
+    }
+
+
     renderCards(items) {
         const tag = this.source === 'quotes' ? 'card-quote' : 'card-todo';
-        if (this.cardElements.length !== LIMIT || (this.cardElements[0] && this.cardElements[0].tagName.toLowerCase() !== tag)) {
+
+        if (this.cardElements.length !== LIMIT || (this.cardElements[0]?.tagName.toLowerCase() !== tag)) {
             this.container.innerHTML = '';
             this.cardElements = [];
+
             for (let i = 0; i < LIMIT; i++) {
                 const el = document.createElement(tag);
                 this.cardElements.push(el);
                 this.container.appendChild(el);
             }
         }
+
         if (!items) {
             this.cardElements.forEach(el => el.showSkeleton());
         } else {

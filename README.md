@@ -1,7 +1,7 @@
 # Витрина карточек
 
 ## Запуск
-npx http-server -p 8000 
+run `npx http-server -p 8000`
 http://127.0.0.1:8000
 
 ## Возможности:
@@ -13,3 +13,4 @@ http://127.0.0.1:8000
 - HTML, CSS (custom properties), JavaScript (ES6)
 - Web Components
 - REST API https://dummyjson.com
+- Bootstrap

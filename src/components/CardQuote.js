@@ -5,8 +5,8 @@ export class CardQuote extends CardElement {
         this.innerHTML = `
       <div class="card">
           <div class="card-body">
-            <blockquote class="blockquote"><p>${value.quote}</p></blockquote>
-            <small>— ${value.author}</small>
+              <h5 class="card-title">${value.quote}</h5>
+              <p class="card-text">— ${value.author}</p>
           </div>
       </div>
     `;
